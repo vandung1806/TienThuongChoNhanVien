@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tiền Thưởng</title>
+  <script src="angular.min/angular.min.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+    <h3>Nhập vào số năm kinh nghiệm: </h3>
+    <input type="number" ng-model="exp" id="exp" ng-keypress="total=''"> <br>
+    <h3> Nhập số lương hàng tháng: </h3>
+    <input type="number" ng-model="slry" id="slry"> <br>
+    <input type="button" value="Calculate" ng-click="Calc()" />
+    <h3>Tổng số tiền thưởng: {{bonus | currency: 'VNĐ: '}}</h3>
+    <h3>Số tiền thuế: {{tax | currency: 'VNĐ: ' }}</h3>
+    <h3>Số tiền thực nhận: {{total | currency: 'VNĐ: '}}</h3>
+
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function ($scope) {
+        $scope.exp = 0;
+        $scope.slry = 0;
+        $scope.month = 0;
+        $scope.tax = 0;
+        $scope.bonus = 0;
+        $scope.total = "";
+        $scope.Calc = function () {
+            if ($scope.exp <5){
+                $scope.month = 3;
+            } else  if ($scope.exp >=5 && $scope.exp <=10) {
+                $scope.month =6;
+            } else  if ($scope.exp >10){
+                $scope.month = 12;
+            }
+            $scope.bonus = $scope.slry * $scope.month;
+            $scope.tax = $scope.bonus * 0.1;
+            $scope.total = $scope.bonus - $scope.tax;
+        }
+    });
+    </script>
+</body>
+</html>
